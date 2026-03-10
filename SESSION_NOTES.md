@@ -5,6 +5,38 @@ _Last updated: March 10, 2026_
 
 ---
 
+## Session: March 10, 2026 — Instagram Logo + GitHub Setup
+
+### Instagram Profile Logo
+- Created `assets/logo-instagram.svg` — 1080×1080px Instagram-ready SVG
+- Design: dark navy `#06080E` bg, electric cyan `#00E5FF`, gold `#FFB300`
+- Elements: targeting reticle, torpedo, HUD corner brackets, scanline texture, dot-grid, tactical readouts, glow filters
+- Fonts: Orbitron 900 (title) + Share Tech Mono (subtitle/HUD)
+- Tagline on logo: "NAVAL COMBAT COMMAND"
+
+### Social Copy (drafted, not yet posted)
+- **Instagram bio:** `Naval combat. 6 commanders. Your move. ⚓ Deep Strike — dropping soon.`
+  - Link: App Store / landing page
+  - Highlights: Commanders | Game Modes | Ranked | Updates
+- **TikTok bio:** `Naval combat game dropping soon ⚓ | 6 commanders | Voice commands | Real-time battles`
+  - Username options: `@deepstrikeapp` / `@playdeepstrike`
+
+### GitHub — Both repos initialized and pushed (private)
+- `git config` set: Shantanu Govindjiwala / shantanu1508@gmail.com
+- Both repos are private under GitHub account `govindjiwalashantanu`
+- Repo URLs:
+  - App: `https://github.com/govindjiwalashantanu/deep-strike`
+  - Reel Generator: `https://github.com/govindjiwalashantanu/deep-strike-videos`
+- To clone on another machine:
+  ```bash
+  git clone https://github.com/govindjiwalashantanu/deep-strike.git
+  git clone https://github.com/govindjiwalashantanu/deep-strike-videos.git
+  cd deep-strike && npm install
+  cd ../deep-strike-videos && npm install
+  ```
+
+---
+
 ## Session: March 10, 2026 — Reel Generator v2
 
 ### Reel Generator (`deep-strike-videos/`) — 8 templates, autopilot rotation, white UI
@@ -262,6 +294,8 @@ APP_STORE_CHECKLIST.md                  — 10-step submission checklist
 | Thing | Value |
 |---|---|
 | Bundle ID (iOS + Android) | `com.deepstrike.app` |
+| GitHub — App repo | `github.com/govindjiwalashantanu/deep-strike` (private) |
+| GitHub — Reel Generator repo | `github.com/govindjiwalashantanu/deep-strike-videos` (private) |
 | Firebase project | `battleshipai-c1de7` |
 | Premium IAP | `com.deepstrike.app.premium` |
 | Battle Pass IAP | `com.deepstrike.app.battlepass` |
