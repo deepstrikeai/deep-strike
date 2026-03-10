@@ -1,0 +1,117 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Games ──────────────────────────────────────────────────────────────────
+    // Public read (join by room code). Controlled create/update. No delete.
+    match /games/{roomCode} {
+      allow read: if true;
+      allow create: if validGameCreate();
+      allow update: if validGameUpdate();
+      allow delete: if false;
+
+      function validGameCreate() {
+        let d = request.resource.data;
+        // Required top-level fields
+        return d.keys().hasAll(['status', 'currentTurn', 'createdAt', 'gameMode'])
+          // Valid enum values
+          && d.status in ['waiting', 'placing']
+          && d.currentTurn in [1, 2]
+          && d.gameMode in ['classic', 'salvo']
+          // Prevent huge documents at creation time
+          && d.keys().size() <= 12;
+      }
+
+      function validGameUpdate() {
+        let incoming = request.resource.data;
+        let current  = resource.data;
+        let changed  = incoming.diff(current).affectedKeys();
+
+        // Only valid status values allowed
+        return incoming.status in ['waiting', 'placing', 'battle', 'finished']
+          // createdAt is immutable
+          && !changed.hasAny(['createdAt'])
+          // gameMode is immutable once set
+          && !changed.hasAny(['gameMode'])
+          // Status can only move forward (no downgrade)
+          && validStatusTransition(current.status, incoming.status)
+          // Moves array may only grow (no rewinding history)
+          && (!changed.hasAny(['moves']) || incoming.moves.size() >= current.get('moves', []).size());
+      }
+
+      // Enforce a strict forward-only state machine:
+      // waiting → placing → battle → finished
+      function validStatusTransition(from, to) {
+        return (from == 'waiting'  && to in ['waiting', 'placing'])
+            || (from == 'placing'  && to in ['placing', 'battle'])
+            || (from == 'battle'   && to in ['battle', 'finished'])
+            || (from == 'finished' && to == 'finished');
+      }
+    }
+
+    // ── Matchmaking ────────────────────────────────────────────────────────────
+    // Each entry is a player slot document.
+    // Anyone may create/update their own queue entry; no one can read others'.
+    // Scoped to the 'matchmaking' top-level collection.
+    match /matchmaking/{docId} {
+      allow read:   if true;   // need to query for open slots
+      allow create: if validQueueEntry();
+      allow update: if validQueueEntry();
+      allow delete: if true;   // players remove themselves when matched
+
+      function validQueueEntry() {
+        let d = request.resource.data;
+        return d.keys().hasAll(['status', 'gameMode', 'createdAt'])
+          && d.status in ['searching', 'matched']
+          && d.gameMode in ['classic', 'salvo']
+          // Prevent abuse: entry must be small
+          && d.keys().size() <= 8;
+      }
+    }
+
+    // ── Players (ELO / leaderboard) ────────────────────────────────────────────
+    // Public read (leaderboard). Validated write. No delete.
+    match /players/{playerId} {
+      allow read: if true;
+      allow create, update: if validPlayerWrite();
+      allow delete: if false;
+
+      function validPlayerWrite() {
+        let d = request.resource.data;
+        return d.keys().hasAll(['elo', 'wins', 'losses'])
+          // Type safety
+          && d.elo   is int
+          && d.wins  is int
+          && d.losses is int
+          // Sane bounds — ELO can't go below 0 or above a reasonable ceiling
+          && d.elo   >= 0
+          && d.elo   <= 5000
+          && d.wins  >= 0
+          && d.losses >= 0
+          // Wins + losses can only ever increase (no stat erasure)
+          && (!resource.data.keys().hasAll(['wins'])
+              || (d.wins >= resource.data.wins && d.losses >= resource.data.losses))
+          // Document size guard
+          && d.keys().size() <= 10;
+      }
+    }
+
+    // ── Analytics ──────────────────────────────────────────────────────────────
+    // Write-only: clients may insert events; no one reads via SDK.
+    match /analytics/{docId} {
+      allow read:   if false;
+      allow create: if validAnalyticsEvent();
+      allow update, delete: if false;
+
+      function validAnalyticsEvent() {
+        let d = request.resource.data;
+        return d.keys().hasAll(['event', 'ts'])
+          && d.event is string
+          && d.event.size() <= 64
+          && d.keys().size() <= 15;
+      }
+    }
+
+  }
+}

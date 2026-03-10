@@ -1,0 +1,117 @@
+// Campaign definitions
+// enemyFleetSeed: used with buildDailyFleet-compatible seeded RNG to place the enemy ships
+// shipCells: total occupied cells (carrier=5, dreadnought=4, cruiser=3, submarine=3, destroyer=2 → 17 total)
+// starsAt: [3-star threshold (shots), 2-star threshold (shots)] — fewer shots = better
+
+export const CAMPAIGNS = [
+  {
+    id: 'operation_north_star',
+    name: 'OPERATION NORTH STAR',
+    icon: '⭐',
+    description: 'Admiral Nova has gone rogue. Hunt down her scattered fleet across the Arctic grid.',
+    commanderEmoji: '🌟',
+    commanderName: 'Admiral Nova',
+    missions: [
+      {
+        id: 'ns_01',
+        number: 1,
+        name: 'FIRST CONTACT',
+        desc: 'A destroyer has been spotted on the northern grid. Eliminate it.',
+        seed: 1001,
+        starsAt: [20, 30],    // ≤20 shots = 3★, ≤30 = 2★, else 1★
+        briefing: '"So you made it this far. Do not expect this to be easy, darling." — Admiral Nova',
+      },
+      {
+        id: 'ns_02',
+        number: 2,
+        name: 'GHOST FLEET',
+        desc: 'Nova\'s ships are running silent. Trust your instincts.',
+        seed: 1002,
+        starsAt: [22, 32],
+        briefing: '"My ships are invisible to your little radar. Good luck, sweetheart." — Admiral Nova',
+      },
+      {
+        id: 'ns_03',
+        number: 3,
+        name: 'THE AMBUSH',
+        desc: 'She\'s bunkered in the south quadrant. Flush her out.',
+        seed: 1003,
+        starsAt: [24, 34],
+        briefing: '"Oh, you\'re getting closer. HOW DELIGHTFUL. And how unwise." — Admiral Nova',
+      },
+      {
+        id: 'ns_04',
+        number: 4,
+        name: 'IRON CURTAIN',
+        desc: 'Nova\'s flagship is surrounded by support vessels. Break through.',
+        seed: 1004,
+        starsAt: [26, 36],
+        briefing: '"This is FINE. Everything is FINE. My fleet is impenetrable. Probably." — Admiral Nova',
+      },
+      {
+        id: 'ns_05',
+        number: 5,
+        name: 'FINAL CURTAIN',
+        desc: 'The flagship has been located. End this.',
+        seed: 1005,
+        starsAt: [28, 38],
+        briefing: '"You wouldn\'t DARE sink my flagship. It has PERSONALITY. I hate you. Congratulations." — Admiral Nova',
+      },
+    ],
+  },
+  {
+    id: 'operation_steel_tide',
+    name: 'OPERATION STEEL TIDE',
+    icon: '🤖',
+    description: 'Commander Zero has launched an automated assault. Dismantle the machine fleet.',
+    commanderEmoji: '🤖',
+    commanderName: 'Commander Zero',
+    missions: [
+      {
+        id: 'st_01',
+        number: 1,
+        name: 'SYSTEM BOOT',
+        desc: 'Zero\'s first drones have been deployed. Terminate them.',
+        seed: 2001,
+        starsAt: [20, 30],
+        briefing: '"INITIATING COMBAT SEQUENCE. Your probability of survival: 12.4%." — Commander Zero',
+      },
+      {
+        id: 'st_02',
+        number: 2,
+        name: 'PROTOCOL 7',
+        desc: 'Automated countermeasures are active. Navigate through.',
+        seed: 2002,
+        starsAt: [22, 32],
+        briefing: '"ANALYSIS: You destroyed unit one. Recalibrating threat assessment. Slightly." — Commander Zero',
+      },
+      {
+        id: 'st_03',
+        number: 3,
+        name: 'THE GRID',
+        desc: 'Zero\'s fleet is arranged in a tactical formation. Disrupt it.',
+        seed: 2003,
+        starsAt: [24, 34],
+        briefing: '"LOG: You persist. Inefficient. Logging emotional response… none found." — Commander Zero',
+      },
+      {
+        id: 'st_04',
+        number: 4,
+        name: 'FAILSAFE',
+        desc: 'Core systems online. Shut them down.',
+        seed: 2004,
+        starsAt: [26, 36],
+        briefing: '"CRITICAL WARNING: This unit does not feel concern. This unit does not feel—" — Commander Zero',
+      },
+      {
+        id: 'st_05',
+        number: 5,
+        name: 'ZERO DAY',
+        desc: 'The Central Command vessel. One final target.',
+        seed: 2005,
+        starsAt: [28, 38],
+        briefing: '"RESULT: You are better. Data logged. Ego module… shutting down." — Commander Zero',
+      },
+    ],
+  },
+];
