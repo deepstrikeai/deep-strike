@@ -6,11 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { SHIPS, GRID_SIZE } from '../constants/gameConstants';
 import { createEmptyShipGrid, isValidPlacement, placeShip, autoPlaceShips } from '../utils/gameLogic';
 import { C, FONT, GLOW } from '../theme';
-
-const CELL_SIZE  = 31;
-const CELL_STRIDE = 33; // CELL_SIZE + marginHorizontal(1) * 2
-const ROW_STRIDE  = 33; // CELL_SIZE + marginBottom(2)
-const AXIS_WIDTH  = 20;
+import { PLACEMENT_CELL_SIZE as CELL_SIZE, PLACEMENT_CELL_STRIDE as CELL_STRIDE, PLACEMENT_ROW_STRIDE as ROW_STRIDE, PLACEMENT_AXIS_WIDTH as AXIS_WIDTH, ms } from '../utils/responsive';
 
 const SHIP_COLORS = {
   carrier:    '#1a6b8a',
@@ -286,38 +282,38 @@ const s = StyleSheet.create({
 
   header:         { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 4 },
   headerLine:     { flex: 1, height: 1, backgroundColor: C.BORDER_MED },
-  headerText:     { fontFamily: FONT.MONO, fontSize: 11, color: C.CYAN, letterSpacing: 3 },
-  headerSub:      { fontFamily: FONT.MONO, fontSize: 10, color: C.TEXT_MUTED, letterSpacing: 1.5, textAlign: 'center', marginBottom: 16 },
+  headerText:     { fontFamily: FONT.MONO, fontSize: ms(11), color: C.CYAN, letterSpacing: 3 },
+  headerSub:      { fontFamily: FONT.MONO, fontSize: ms(10), color: C.TEXT_MUTED, letterSpacing: 1.5, textAlign: 'center', marginBottom: 16 },
 
   gridWrap:       { alignSelf: 'center', marginBottom: 14 },
   colLabels:      { flexDirection: 'row', marginBottom: 2 },
   gridRow:        { flexDirection: 'row', alignItems: 'center', marginBottom: 2 },
-  axisLabel:      { width: AXIS_WIDTH, fontFamily: FONT.MONO, fontSize: 9, color: C.TEXT_MUTED, textAlign: 'center' },
-  colLabel:       { width: CELL_STRIDE, fontFamily: FONT.MONO, fontSize: 9, color: C.TEXT_MUTED, textAlign: 'center' },
+  axisLabel:      { width: AXIS_WIDTH, fontFamily: FONT.MONO, fontSize: ms(9), color: C.TEXT_MUTED, textAlign: 'center' },
+  colLabel:       { width: CELL_STRIDE, fontFamily: FONT.MONO, fontSize: ms(9), color: C.TEXT_MUTED, textAlign: 'center' },
   cell:           { width: CELL_SIZE, height: CELL_SIZE, borderWidth: 1, marginHorizontal: 1 },
 
   controls:       { flexDirection: 'row', gap: 8, marginBottom: 20 },
-  ctrl:           { flex: 1, backgroundColor: C.BG_CARD, borderWidth: 1, borderColor: C.BORDER, padding: 10, alignItems: 'center' },
+  ctrl:           { flex: 1, backgroundColor: C.BG_CARD, borderWidth: 1, borderColor: C.BORDER, padding: ms(10), alignItems: 'center' },
   ctrlActive:     { borderColor: C.CYAN, backgroundColor: C.CYAN_DIM },
-  ctrlText:       { fontFamily: FONT.MONO, fontSize: 11, color: C.TEXT_DIM, letterSpacing: 1 },
+  ctrlText:       { fontFamily: FONT.MONO, fontSize: ms(11), color: C.TEXT_DIM, letterSpacing: 1 },
 
   fleetSection:   { marginBottom: 20 },
   sectionLabel:   { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 10 },
   sectionDot:     { width: 4, height: 4, backgroundColor: C.CYAN },
-  sectionText:    { fontFamily: FONT.MONO, fontSize: 10, color: C.CYAN, letterSpacing: 2 },
+  sectionText:    { fontFamily: FONT.MONO, fontSize: ms(10), color: C.CYAN, letterSpacing: 2 },
 
-  shipRow:        { flexDirection: 'row', alignItems: 'center', padding: 10, backgroundColor: C.BG_CARD, borderWidth: 1, borderColor: 'transparent', marginBottom: 6 },
+  shipRow:        { flexDirection: 'row', alignItems: 'center', padding: ms(10), backgroundColor: C.BG_CARD, borderWidth: 1, borderColor: 'transparent', marginBottom: 6 },
   shipRowSelected:{ borderColor: C.CYAN, backgroundColor: C.CYAN_DIM },
   shipRowPlaced:  { opacity: 0.45 },
-  shipSymbol:     { fontSize: 17, marginRight: 10 },
-  shipName:       { flex: 1, fontFamily: FONT.MONO, fontSize: 11, color: C.TEXT, letterSpacing: 1 },
+  shipSymbol:     { fontSize: ms(17), marginRight: 10 },
+  shipName:       { flex: 1, fontFamily: FONT.MONO, fontSize: ms(11), color: C.TEXT, letterSpacing: 1 },
   shipBlocks:     { flexDirection: 'row', gap: 3, marginRight: 10 },
-  block:          { width: 10, height: 10, backgroundColor: C.TEXT_MUTED },
+  block:          { width: ms(10), height: ms(10), backgroundColor: C.TEXT_MUTED },
   blockPlaced:    { backgroundColor: C.GREEN },
   blockSelected:  { backgroundColor: C.CYAN },
-  shipStatus:     { fontFamily: FONT.MONO, fontSize: 13, color: C.CYAN, width: 14, textAlign: 'right' },
+  shipStatus:     { fontFamily: FONT.MONO, fontSize: ms(13), color: C.CYAN, width: 14, textAlign: 'right' },
 
-  readyBtn:       { borderWidth: 1, borderColor: C.CYAN, padding: 20, alignItems: 'center', overflow: 'hidden', position: 'relative' },
+  readyBtn:       { borderWidth: 1, borderColor: C.CYAN, padding: ms(20), alignItems: 'center', overflow: 'hidden', position: 'relative' },
   readyBtnOff:    { borderColor: C.BORDER, backgroundColor: C.BG_CARD },
-  readyBtnText:   { fontSize: 15, fontWeight: '900', color: C.CYAN, letterSpacing: 4 },
+  readyBtnText:   { fontSize: ms(15), fontWeight: '900', color: C.CYAN, letterSpacing: 4 },
 });

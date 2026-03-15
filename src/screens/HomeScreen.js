@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { C, FONT, GLOW } from '../theme';
 import { GAME_MODES } from '../constants/gameConstants';
 import AdBanner from '../components/AdBanner';
+import { ms, MAX_CONTENT_W, isTablet } from '../utils/responsive';
 
 const { width, height } = Dimensions.get('window');
 
@@ -80,6 +81,7 @@ export default function HomeScreen({ onStart, onMultiplayer, onLeaderboard, onSe
       <SonarRing delay={2000} size={width * 1.15} />
 
       <Animated.View style={[s.content, { opacity: fadeAnim, transform: [{ translateY: slideAnim }] }]}>
+        <View style={s.contentInner}>
 
         {/* Settings icon */}
         {onSettings && (
@@ -191,6 +193,7 @@ export default function HomeScreen({ onStart, onMultiplayer, onLeaderboard, onSe
             </TouchableOpacity>
           )}
         </View>
+        </View>
       </Animated.View>
 
       {/* Banner ad — shown at bottom for free users only */}
@@ -202,51 +205,52 @@ export default function HomeScreen({ onStart, onMultiplayer, onLeaderboard, onSe
 const s = StyleSheet.create({
   root:            { flex: 1, backgroundColor: C.BG },
   content:         { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 24 },
+  contentInner:    { width: '100%', maxWidth: MAX_CONTENT_W, alignItems: 'center' },
 
   settingsBtn:     { position: 'absolute', top: 20, right: 24, padding: 8 },
-  settingsIcon:    { fontSize: 22 },
+  settingsIcon:    { fontSize: ms(22) },
 
-  topTag:          { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 32 },
+  topTag:          { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: isTablet ? 40 : 32 },
   tagDot:          { width: 4, height: 4, borderRadius: 2, backgroundColor: C.CYAN },
-  tagText:         { fontFamily: FONT.MONO, fontSize: 9, color: C.CYAN, letterSpacing: 2 },
+  tagText:         { fontFamily: FONT.MONO, fontSize: ms(9), color: C.CYAN, letterSpacing: 2 },
 
-  titleBlock:      { alignItems: 'center', marginBottom: 28 },
-  titleMain:       { fontSize: 72, fontWeight: '900', color: C.TEXT, letterSpacing: 10, lineHeight: 78 },
-  titleDivider:    { flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: 4 },
+  titleBlock:      { alignItems: 'center', marginBottom: isTablet ? 36 : 28 },
+  titleMain:       { fontSize: ms(72, 0.5), fontWeight: '900', color: C.TEXT, letterSpacing: 10, lineHeight: ms(78, 0.5) },
+  titleDivider:    { flexDirection: 'row', alignItems: 'center', gap: 12, marginTop: 4, width: '100%' },
   divLine:         { flex: 1, height: 1, backgroundColor: C.CYAN_BORDER },
-  titleAI:         { fontSize: 20, fontWeight: '700', color: C.CYAN, letterSpacing: 14, fontFamily: FONT.MONO },
+  titleAI:         { fontSize: ms(20, 0.5), fontWeight: '700', color: C.CYAN, letterSpacing: 14, fontFamily: FONT.MONO },
 
-  chips:           { flexDirection: 'row', gap: 10, marginBottom: 44 },
-  chip:            { flexDirection: 'row', alignItems: 'center', gap: 5, backgroundColor: C.BG_CARD, borderWidth: 1, borderColor: C.BORDER, paddingVertical: 7, paddingHorizontal: 12 },
-  chipIcon:        { fontSize: 13 },
-  chipLabel:       { fontFamily: FONT.MONO, fontSize: 10, color: C.TEXT_DIM, letterSpacing: 1.5 },
+  chips:           { flexDirection: 'row', gap: 10, marginBottom: isTablet ? 52 : 44 },
+  chip:            { flexDirection: 'row', alignItems: 'center', gap: 5, backgroundColor: C.BG_CARD, borderWidth: 1, borderColor: C.BORDER, paddingVertical: ms(7), paddingHorizontal: ms(12) },
+  chipIcon:        { fontSize: ms(13) },
+  chipLabel:       { fontFamily: FONT.MONO, fontSize: ms(10), color: C.TEXT_DIM, letterSpacing: 1.5 },
 
-  modeRow:         { flexDirection: 'row', gap: 10, marginBottom: 18 },
-  modeChip:        { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: C.BG_CARD, borderWidth: 1, borderColor: C.BORDER, paddingVertical: 10 },
+  modeRow:         { flexDirection: 'row', gap: 10, marginBottom: 18, width: '100%' },
+  modeChip:        { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: C.BG_CARD, borderWidth: 1, borderColor: C.BORDER, paddingVertical: ms(10) },
   modeChipActive:  { borderColor: C.CYAN, backgroundColor: C.CYAN_DIM },
-  modeChipIcon:    { fontSize: 14 },
-  modeChipLabel:   { fontFamily: FONT.MONO, fontSize: 11, fontWeight: '900', color: C.TEXT_DIM, letterSpacing: 2 },
+  modeChipIcon:    { fontSize: ms(14) },
+  modeChipLabel:   { fontFamily: FONT.MONO, fontSize: ms(11), fontWeight: '900', color: C.TEXT_DIM, letterSpacing: 2 },
   modeChipLabelActive: { color: C.CYAN },
-  modeLock:        { fontSize: 9, marginLeft: 2 },
+  modeLock:        { fontSize: ms(9), marginLeft: 2 },
 
   btnGroup:        { width: '100%', gap: 12, marginBottom: 28 },
   btnPrimary:      { borderWidth: 1, borderColor: C.CYAN, overflow: 'hidden' },
-  btnGrad:         { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, paddingVertical: 18 },
-  btnPrimaryIcon:  { fontSize: 18 },
-  btnPrimaryText:  { fontSize: 16, fontWeight: '900', color: C.CYAN, letterSpacing: 4 },
-  btnSecondary:    { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, borderWidth: 1, borderColor: C.GREEN_BORDER, paddingVertical: 16, backgroundColor: C.GREEN_DIM },
-  btnSecondaryIcon:{ fontSize: 16 },
-  btnSecondaryText:{ fontSize: 15, fontWeight: '900', color: C.GREEN, letterSpacing: 3 },
+  btnGrad:         { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, paddingVertical: ms(18) },
+  btnPrimaryIcon:  { fontSize: ms(18) },
+  btnPrimaryText:  { fontSize: ms(16), fontWeight: '900', color: C.CYAN, letterSpacing: 4 },
+  btnSecondary:    { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, borderWidth: 1, borderColor: C.GREEN_BORDER, paddingVertical: ms(16), backgroundColor: C.GREEN_DIM },
+  btnSecondaryIcon:{ fontSize: ms(16) },
+  btnSecondaryText:{ fontSize: ms(15), fontWeight: '900', color: C.GREEN, letterSpacing: 3 },
 
-  btnCampaign:     { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, borderWidth: 1, borderColor: C.AMBER_BORDER, paddingVertical: 14, backgroundColor: C.AMBER_DIM },
-  btnCampaignIcon: { fontSize: 16 },
-  btnCampaignText: { fontSize: 14, fontWeight: '900', color: C.AMBER, letterSpacing: 3 },
+  btnCampaign:     { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10, borderWidth: 1, borderColor: C.AMBER_BORDER, paddingVertical: ms(14), backgroundColor: C.AMBER_DIM },
+  btnCampaignIcon: { fontSize: ms(16) },
+  btnCampaignText: { fontSize: ms(14), fontWeight: '900', color: C.AMBER, letterSpacing: 3 },
 
-  tagline:         { fontFamily: FONT.MONO, fontSize: 10, color: C.TEXT_MUTED, letterSpacing: 3 },
-  bottomLinks:     { flexDirection: 'row', gap: 20, marginTop: 12 },
+  tagline:         { fontFamily: FONT.MONO, fontSize: ms(10), color: C.TEXT_MUTED, letterSpacing: 3 },
+  bottomLinks:     { flexDirection: 'row', gap: isTablet ? 32 : 20, marginTop: 12, flexWrap: 'wrap', justifyContent: 'center' },
   bottomLink:      { padding: 8, alignItems: 'center' },
-  leaderboardLinkText: { fontFamily: FONT.MONO, fontSize: 10, color: C.AMBER, letterSpacing: 2 },
-  storeLinkText:   { fontFamily: FONT.MONO, fontSize: 10, color: C.CYAN, letterSpacing: 2 },
-  bpLinkText:      { fontFamily: FONT.MONO, fontSize: 10, color: C.AMBER, letterSpacing: 2 },
-  challengeLinkText: { fontFamily: FONT.MONO, fontSize: 10, color: C.GREEN, letterSpacing: 2 },
+  leaderboardLinkText: { fontFamily: FONT.MONO, fontSize: ms(10), color: C.AMBER, letterSpacing: 2 },
+  storeLinkText:   { fontFamily: FONT.MONO, fontSize: ms(10), color: C.CYAN, letterSpacing: 2 },
+  bpLinkText:      { fontFamily: FONT.MONO, fontSize: ms(10), color: C.AMBER, letterSpacing: 2 },
+  challengeLinkText: { fontFamily: FONT.MONO, fontSize: ms(10), color: C.GREEN, letterSpacing: 2 },
 });
