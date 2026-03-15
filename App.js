@@ -340,7 +340,7 @@ export default function App() {
           />
         );
       case GAME_PHASE.PLACEMENT:
-        return <PlacementScreen onReady={handlePlacementReady} onBack={handlePlacementBack} commander={commander} />;
+        return <PlacementScreen onReady={handlePlacementReady} onBack={handlePlacementBack} onHome={handleHome} commander={commander} />;
       case GAME_PHASE.BATTLE:
         return (
           <BattleScreen
@@ -480,6 +480,7 @@ export default function App() {
           <PlacementScreen
             onReady={handleMpPlacementReady}
             onBack={handleMpPlacementBack}
+            onHome={handleMpHome}
             commander={null}
             headerOverride={`Player ${playerNum} — Deploy Your Fleet`}
           />

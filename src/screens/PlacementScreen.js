@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef, useMemo } from 'react';
 import {
-  View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, PanResponder,
+  View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, PanResponder, Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { SHIPS, GRID_SIZE } from '../constants/gameConstants';
@@ -20,7 +20,7 @@ const SHIP_COLORS = {
   destroyer:  '#1a3a6a',
 };
 
-export default function PlacementScreen({ onReady, commander, headerOverride, onBack }) {
+export default function PlacementScreen({ onReady, commander, headerOverride, onBack, onHome }) {
   const [shipGrid,      setShipGrid]      = useState(createEmptyShipGrid());
   const [selectedShip,  setSelectedShip]  = useState(SHIPS[0]);
   const [horizontal,    setHorizontal]    = useState(true);
@@ -197,8 +197,22 @@ export default function PlacementScreen({ onReady, commander, headerOverride, on
 
         {/* Controls */}
         <View style={s.controls}>
-          {onBack && (
-            <TouchableOpacity style={s.ctrl} onPress={onBack} activeOpacity={0.8}>
+          {(onBack || onHome) && (
+            <TouchableOpacity
+              style={s.ctrl}
+              onPress={() => {
+                Alert.alert(
+                  'Leave Deployment?',
+                  'Your fleet placement will be lost.',
+                  [
+                    { text: 'Cancel', style: 'cancel' },
+                    ...(onBack ? [{ text: 'Back to Commanders', onPress: onBack }] : []),
+                    ...(onHome ? [{ text: 'Main Menu', style: 'destructive', onPress: onHome }] : []),
+                  ]
+                );
+              }}
+              activeOpacity={0.8}
+            >
               <Text style={[s.ctrlText, { color: C.TEXT_MUTED }]}>← BACK</Text>
             </TouchableOpacity>
           )}
