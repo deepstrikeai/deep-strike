@@ -40,11 +40,12 @@ import * as Notifications from 'expo-notifications';
 import { initSentry, setUser as setSentryUser } from './src/services/sentryService';
 import { initAnalytics, track, EVENTS } from './src/services/analyticsService';
 import { initAds } from './src/services/adService';
+import { requestATT } from './src/services/attService';
 
 // Init Sentry before the component tree mounts
 initSentry();
-// Pre-load first interstitial ad (no-op for premium users at runtime)
-initAds();
+// Request ATT on iOS, then pre-load first interstitial ad
+requestATT().then(() => initAds());
 
 export default function App() {
   // Single-player state

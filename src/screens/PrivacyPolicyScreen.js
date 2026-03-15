@@ -29,9 +29,15 @@ We do not collect your name, email, phone number, location, or any personally id
   },
   {
     title: 'Third-Party Services',
-    body: `Deep Strike uses Firebase (Google) for real-time multiplayer and leaderboard data. Firebase may collect usage and diagnostic data per Google's privacy policy.
+    body: `Deep Strike uses the following third-party services:
 
-Push notifications are processed via Apple Push Notification Service (APNs) and/or Firebase Cloud Messaging (FCM). No message content is stored by us.`,
+• Firebase (Google) — real-time multiplayer and leaderboard data. Firebase may collect usage and diagnostic data per Google's privacy policy.
+
+• Google AdMob — displays ads to free users. AdMob may collect your device advertising identifier (IDFA/GAID) to serve relevant ads. You can opt out via your device settings. Premium users see no ads.
+
+• Sentry — anonymous crash reporting to help us fix bugs. No personal information is sent. Crash reports contain only technical data and your anonymous player ID.
+
+• Apple Push Notification Service (APNs) / Firebase Cloud Messaging (FCM) — used for multiplayer turn notifications. No message content is stored by us.`,
   },
   {
     title: 'Data Retention',
@@ -43,11 +49,11 @@ Push notifications are processed via Apple Push Notification Service (APNs) and/
   },
   {
     title: 'Children',
-    body: `Deep Strike is rated 4+ and is suitable for all ages. We do not knowingly collect data from children under 13 beyond the anonymous player ID described above.`,
+    body: `Deep Strike is rated 9+ on the App Store and is not directed at children under 13. We do not knowingly collect personal data from children under 13.`,
   },
   {
     title: 'Contact',
-    body: `Questions about this policy? Contact us at: privacy@deepstrike.app`,
+    body: `Questions about this policy? Contact us at: sendyourfeedbackhere@gmail.com`,
   },
 ];
 

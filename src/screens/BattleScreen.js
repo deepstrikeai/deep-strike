@@ -523,7 +523,7 @@ export default function BattleScreen({ playerShipGrid, playerPlacements, command
   const renderGrid = (grid, isAttackGrid, onPress) => (
     <Animated.View style={{ transform: [{ translateX: shakeAnim }] }}>
       <View style={s.colLabels}>
-        <View style={{ width: 18 }} />
+        <View style={{ width: CELL_SIZE + 2 }} />
         {[...Array(GRID_SIZE)].map((_, i) => (
           <Text key={i} style={s.axisLabel}>{i + 1}</Text>
         ))}
@@ -776,7 +776,7 @@ const s = StyleSheet.create({
   gridLabel:    { fontFamily: FONT.MONO, fontSize: 8, color: C.TEXT_MUTED, letterSpacing: 1.5, marginBottom: 8, textAlign: 'center' },
   colLabels:    { flexDirection: 'row', marginBottom: 2 },
   gridRow:      { flexDirection: 'row', alignItems: 'center', marginBottom: 1 },
-  axisLabel:    { width: 18, fontFamily: FONT.MONO, fontSize: 8, color: C.TEXT_MUTED, textAlign: 'center' },
+  axisLabel:    { width: CELL_SIZE + 2, fontFamily: FONT.MONO, fontSize: 8, color: C.TEXT_MUTED, textAlign: 'center' },
   cell:         { width: CELL_SIZE, height: CELL_SIZE, marginHorizontal: 1, borderWidth: 1, borderColor: C.BORDER, alignItems: 'center', justifyContent: 'center' },
   cellIcon:     { fontSize: 13 },
   shipDot:      { width: 8, height: 8, backgroundColor: 'rgba(0,229,255,0.3)' },

@@ -158,7 +158,7 @@ export default function PlacementScreen({ onReady, commander, headerOverride, on
           <View style={s.colLabels}>
             <View style={{ width: AXIS_WIDTH }} />
             {[...Array(GRID_SIZE)].map((_, i) => (
-              <Text key={i} style={s.axisLabel}>{i + 1}</Text>
+              <Text key={i} style={s.colLabel}>{i + 1}</Text>
             ))}
           </View>
           {/* PanResponder wraps only the grid rows, not the col labels */}
@@ -279,6 +279,7 @@ const s = StyleSheet.create({
   colLabels:      { flexDirection: 'row', marginBottom: 2 },
   gridRow:        { flexDirection: 'row', alignItems: 'center', marginBottom: 2 },
   axisLabel:      { width: AXIS_WIDTH, fontFamily: FONT.MONO, fontSize: 9, color: C.TEXT_MUTED, textAlign: 'center' },
+  colLabel:       { width: CELL_STRIDE, fontFamily: FONT.MONO, fontSize: 9, color: C.TEXT_MUTED, textAlign: 'center' },
   cell:           { width: CELL_SIZE, height: CELL_SIZE, borderWidth: 1, marginHorizontal: 1 },
 
   controls:       { flexDirection: 'row', gap: 8, marginBottom: 20 },

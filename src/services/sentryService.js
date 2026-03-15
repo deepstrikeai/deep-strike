@@ -13,7 +13,7 @@
 import * as Sentry from '@sentry/react-native';
 
 // ── Replace with your real DSN from sentry.io ─────────────────────────────────
-const SENTRY_DSN = '';
+const SENTRY_DSN = 'https://2350d78683673788788300ea0095a4b9@o4511046639878144.ingest.us.sentry.io/4511046643417088';
 // Example: 'https://abcdef1234567890@o123456.ingest.sentry.io/1234567'
 // ─────────────────────────────────────────────────────────────────────────────
 

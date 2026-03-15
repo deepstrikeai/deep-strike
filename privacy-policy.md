@@ -8,7 +8,7 @@ Deep Strike ("the App") is developed by Kanupriya Mehta. This privacy policy exp
 ## Data We Collect
 - **Player ID**: A randomly generated anonymous identifier stored locally on your device to save your game progress.
 - **Game Data**: Game statistics, scores, and progress stored locally and in Firebase for multiplayer features.
-- **Analytics**: Anonymous usage data to improve the app (via Firebase Analytics).
+- **Analytics**: Anonymous gameplay events (app opens, game results) stored in Firebase to improve the app. No personal data is included.
 - **Crash Reports**: Anonymous crash data to fix bugs (via Sentry).
 
 ## Data We Do Not Collect
@@ -22,10 +22,10 @@ This app displays ads via Google AdMob. AdMob may collect device identifiers and
 Purchases are processed by Apple (App Store) or Google (Play Store). We do not store payment information.
 
 ## Children's Privacy
-This app is rated 9+ and is not directed at children under 13.
+This app is rated 9+ on the App Store and is not directed at children under 13. We do not knowingly collect personal data from children under 13.
 
 ## Contact
-For privacy questions, contact us at: kanupriya.mehta@gmail.com
+For privacy questions, contact us at: sendyourfeedbackhere@gmail.com
 
 ## Changes
 We may update this policy. Continued use of the app means you accept the updated policy.

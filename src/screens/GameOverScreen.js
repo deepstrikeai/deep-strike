@@ -5,7 +5,6 @@ import { useSoundEffects } from '../hooks/useSoundEffects';
 import { requestRating } from '../services/ratingService';
 import { maybeShowAd } from '../services/adService';
 import { C, FONT, GLOW } from '../theme';
-import AdBanner from '../components/AdBanner';
 
 export default function GameOverScreen({ result, commander, xpResult, onPlayAgain, onHome, onReplay, roomCode }) {
   const { winner, shots, hits } = result;
@@ -22,7 +21,7 @@ export default function GameOverScreen({ result, commander, xpResult, onPlayAgai
   const handlePlayAgain = async () => {
     setAdLoading(true);
     try {
-      await maybeShowAd(); // no-op for premium users; shows ad every 5th game for free users
+      await maybeShowAd();
     } finally {
       setAdLoading(false);
       onPlayAgain();
@@ -181,8 +180,6 @@ export default function GameOverScreen({ result, commander, xpResult, onPlayAgai
       </Animated.View>
       </ScrollView>
 
-      {/* Banner ad — shown at bottom for free users only */}
-      <AdBanner />
     </SafeAreaView>
   );
 }

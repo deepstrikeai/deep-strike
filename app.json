@@ -15,10 +15,12 @@
       "supportsTablet": false,
       "bundleIdentifier": "com.deepstrike.app",
       "buildNumber": "1",
+      "deploymentTarget": "15.0",
       "infoPlist": {
         "NSSpeechRecognitionUsageDescription": "Deep Strike uses speech recognition so you can call out shot coordinates by voice.",
         "NSMicrophoneUsageDescription": "Deep Strike needs microphone access for voice commands.",
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSUserTrackingUsageDescription": "Deep Strike uses your advertising ID to show relevant ads. This helps keep the app free to play."
       }
     },
     "android": {
@@ -27,9 +29,11 @@
         "backgroundColor": "#0a1628"
       },
       "package": "com.deepstrike.app",
-      "versionCode": 1,
+      "versionCode": 2,
       "permissions": [
-        "RECORD_AUDIO"
+        "RECORD_AUDIO",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
       ]
     },
     "web": {
@@ -37,6 +41,13 @@
       "bundler": "metro"
     },
     "plugins": [
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-2359377961428278~9039839772",
+          "iosAppId": "ca-app-pub-2359377961428278~4868660479"
+        }
+      ],
       [
         "expo-av",
         {
@@ -51,21 +62,18 @@
           "color": "#00E5FF"
         }
       ],
-      "expo-iap",
       "@sentry/react-native",
       [
-        "react-native-google-mobile-ads",
-        {
-          "androidAppId": "ca-app-pub-3940256099942544~3347511713",
-          "iosAppId": "ca-app-pub-3940256099942544~1458002511",
-          "userTrackingUsageDescription": "This identifier will be used to show you relevant ads."
-        }
-      ]
+        "expo-iap",
+        {}
+      ],
+      "expo-tracking-transparency"
     ],
     "extra": {
       "eas": {
-        "projectId": "YOUR_EAS_PROJECT_ID"
+        "projectId": "a6ee5805-7ef6-4db0-982e-0099da2c289e"
       }
-    }
+    },
+    "owner": "kanupriyam"
   }
 }

@@ -3,6 +3,7 @@ import { InterstitialAd, AdEventType, TestIds } from 'react-native-google-mobile
 import { Platform } from 'react-native';
 import { isPremiumUnlocked } from './premiumService';
 import { captureException } from './sentryService';
+import { getATTStatus } from './attService';
 
 // ── Ad Unit IDs ───────────────────────────────────────────────────────────────
 // Replace TEST_IDS with real Ad Unit IDs from AdMob console before production build.
@@ -16,18 +17,18 @@ import { captureException } from './sentryService';
 //   Android: ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX
 
 const AD_UNIT_ID = __DEV__
-  ? TestIds.INTERSTITIAL  // Test ad — always use in dev/TestFlight
+  ? (TestIds.INTERSTITIAL ?? null)  // null in Expo Go (native module unavailable)
   : Platform.select({
-      ios:     'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX',  // TODO: replace with real iOS interstitial ad unit ID
-      android: 'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX',  // TODO: replace with real Android interstitial ad unit ID
+      ios:     'ca-app-pub-2359377961428278/5162471229',
+      android: 'ca-app-pub-2359377961428278/8910144540',
     });
 
 // Banner ad unit ID — used by AdBanner component on HomeScreen / GameOverScreen
 export const BANNER_AD_UNIT_ID = __DEV__
-  ? TestIds.BANNER
+  ? (TestIds.BANNER ?? null)
   : Platform.select({
-      ios:     'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX',  // TODO: replace with real iOS banner ad unit ID
-      android: 'ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX',  // TODO: replace with real Android banner ad unit ID
+      ios:     'ca-app-pub-2359377961428278/6521487645',
+      android: 'ca-app-pub-2359377961428278/5197162641',
     });
 
 // ── Config ────────────────────────────────────────────────────────────────────
@@ -43,13 +44,16 @@ let _loading = false;
 
 // ── Load ad ───────────────────────────────────────────────────────────────────
 
-function _loadAd() {
+async function _loadAd() {
   if (_loading || _adLoaded) return;
+  if (!InterstitialAd) return; // stub in Expo Go
   _loading = true;
 
   try {
+    const attStatus = await getATTStatus();
+    const nonPersonalized = attStatus !== 'authorized';
     _ad = InterstitialAd.createForAdRequest(AD_UNIT_ID, {
-      requestNonPersonalizedAdsOnly: false,
+      requestNonPersonalizedAdsOnly: nonPersonalized,
     });
 
     _ad.addAdEventListener(AdEventType.LOADED, () => {

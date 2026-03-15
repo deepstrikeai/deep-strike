@@ -36,9 +36,9 @@ export default function StoreScreen({ onBack, onPaywall, isPremium }) {
   };
 
   const handleDailyFree = async (commanderId) => {
-    setLoading(true);
+    setPurchasing(true);
     const result = await claimDailyFreeShards(commanderId);
-    setLoading(false);
+    setPurchasing(false);
     if (result.alreadyClaimed) {
       Alert.alert('Already Claimed', 'Come back tomorrow for more free shards!');
       return;
@@ -247,7 +247,7 @@ export default function StoreScreen({ onBack, onPaywall, isPremium }) {
                     <TouchableOpacity
                       key={cmd.id}
                       onPress={() => handleDailyFree(cmd.id)}
-                      disabled={loading}
+                      disabled={purchasing}
                       activeOpacity={0.8}
                       style={[s.dailyBtn, { borderColor: cmd.color }]}
                     >
