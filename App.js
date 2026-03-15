@@ -22,6 +22,7 @@ import CampaignBattleScreen from './src/screens/CampaignBattleScreen';
 import BattlePassScreen from './src/screens/BattlePassScreen';
 import ChallengesScreen from './src/screens/ChallengesScreen';
 import PrivacyPolicyScreen from './src/screens/PrivacyPolicyScreen';
+import TermsScreen from './src/screens/TermsScreen';
 import DeleteAccountScreen from './src/screens/DeleteAccountScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';
 import { isOnboardingDone } from './src/services/onboardingService';
@@ -41,11 +42,12 @@ import { initSentry, setUser as setSentryUser } from './src/services/sentryServi
 import { initAnalytics, track, EVENTS } from './src/services/analyticsService';
 import { initAds } from './src/services/adService';
 import { requestATT } from './src/services/attService';
+import { requestConsent } from './src/services/consentService';
 
 // Init Sentry before the component tree mounts
 initSentry();
-// Request ATT on iOS, then pre-load first interstitial ad
-requestATT().then(() => initAds());
+// EU consent (UMP) + iOS ATT in parallel, then load ads
+Promise.all([requestConsent(), requestATT()]).then(() => initAds());
 
 export default function App() {
   // Single-player state
@@ -445,6 +447,7 @@ export default function App() {
           <SettingsScreen
             onBack={handleHome}
             onPrivacy={() => setPhase('privacy_policy')}
+            onTerms={() => setPhase('terms')}
             onDeleteAccount={() => setPhase('delete_account')}
             onPaywall={() => { prePaywallPhaseRef.current = 'settings'; goToPaywall('settings'); }}
             onThemeChange={t => setGridTheme(t)}
@@ -455,6 +458,8 @@ export default function App() {
         );
       case 'privacy_policy':
         return <PrivacyPolicyScreen onBack={() => setPhase('settings')} />;
+      case 'terms':
+        return <TermsScreen onBack={() => setPhase('settings')} />;
       case 'delete_account':
         return <DeleteAccountScreen onDeleted={handleAccountDeleted} onBack={() => setPhase('settings')} />;
 

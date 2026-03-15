@@ -18,7 +18,7 @@ const Row = ({ icon, label, sub, onPress, danger = false }) => (
   </TouchableOpacity>
 );
 
-export default function SettingsScreen({ onBack, onPrivacy, onDeleteAccount, isPremium, onPaywall, myPlayerId, onThemeChange, onVoiceOnlyChange }) {
+export default function SettingsScreen({ onBack, onPrivacy, onTerms, onDeleteAccount, isPremium, onPaywall, myPlayerId, onThemeChange, onVoiceOnlyChange }) {
   const [activeThemeId, setActiveThemeId] = useState('deep_ocean');
   const [voiceOnly, setVoiceOnly] = useState(false);
 
@@ -136,6 +136,13 @@ export default function SettingsScreen({ onBack, onPrivacy, onDeleteAccount, isP
             label="Privacy Policy"
             sub="How we handle your data"
             onPress={onPrivacy}
+          />
+          <View style={s.divider} />
+          <Row
+            icon="📋"
+            label="Terms of Service"
+            sub="Rules and conditions of use"
+            onPress={onTerms}
           />
         </View>
 
