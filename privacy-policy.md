@@ -1,9 +1,9 @@
-# Privacy Policy for Deep Strike
+# Privacy Policy for DeepStrikeAI
 
 **Last updated: March 2026**
 
 ## Overview
-Deep Strike ("the App") is developed by Kanupriya Mehta. This privacy policy explains how we handle information when you use our app.
+DeepStrikeAI ("the App") is developed by Kanupriya Mehta. This privacy policy explains how we handle information when you use our app.
 
 ## Data We Collect
 - **Player ID**: A randomly generated anonymous identifier stored locally on your device to save your game progress.
